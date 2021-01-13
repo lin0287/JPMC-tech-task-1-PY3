@@ -1,0 +1,56 @@
+From 6339dab6c0fd3273f3cf4ed4d85f5552e252db51 Mon Sep 17 00:00:00 2001
+From: Zhi Lin <37977095+lin0287@users.noreply.github.com>
+Date: Wed, 13 Jan 2021 07:39:05 +1030
+Subject: [PATCH] Update client3.py
+
+Bugfixes for client3.py
+---
+ jpm_module_1/client3.py | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/jpm_module_1/client3.py b/jpm_module_1/client3.py
+index 0e700a1..195b336 100644
+--- a/jpm_module_1/client3.py
++++ b/jpm_module_1/client3.py
+@@ -22,6 +22,8 @@ import urllib.request
+ import time
+ import json
+ import random
++import numpy as np
++from collections import Counter 
+ 
+ # Server API URLs
+ QUERY = "http://localhost:8080/query?id={}"
+@@ -42,24 +44,23 @@ def getRatio(price_a, price_b):
+ 	""" Get ratio of price_a and price_b """
+ 	""" ------------- Update this function ------------- """
+ 	""" Also create some unit tests for this function in client_test.py """
+-	if (price_b == 0){
++	if (price_b == 0):
++		# avoid zero division error
+ 		return
+-	}
+-
+ 	return price_a/price_b
+ 
+ # Main
+ if __name__ == "__main__":
+ 
+ 	# Query the price once every N seconds.
+-	for _ in iter(range(N)):
++	for _ in (range(N)):
+ 		quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+ 		""" ----------- Update to get the ratio --------------- """
+ 		prices = {}
+ 		for quote in quotes:
+ 			stock, bid_price, ask_price, price = getDataPoint(quote)
+-			prices[stock] = prices
++			prices[stock] = price
+ 			print ("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-		print ("Ratio %s" % getRatio(prices['ABC'], prices['DEF']))
++		print ("Ratio %s" % (getRatio(prices['ABC'], prices['DEF'])))
+-- 
+2.30.0.windows.1
+
